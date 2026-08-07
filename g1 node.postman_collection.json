@@ -1,0 +1,160 @@
+{
+  "info": {
+    "_postman_id": "7991e04b-f7af-44bb-839a-bd07f5e3ef90",
+    "name": "g1 node",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57079027",
+    "_collection_link": "https://go.postman.co/collection/57079027-7991e04b-f7af-44bb-839a-bd07f5e3ef90?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "add user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[{\"id\":1,\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"},{\"i\":2,\"name\":\"user2\",\"age\":30,\"email\":\"user@gmail.com\"},[{\"id\":1,\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"},{\"i\":2,\"name\":\"user2\",\"age\":30,\"email\":\"user@gmail.com\"}]]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3008/user",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3008",
+          "path": [
+            "user"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update user",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[{\"id\":1,\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"},\r\n\r\n{\"id\":2,\"name\":\"user2\",\"age\":30,\"email\":\"user@gmail.com\"}]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3923/user/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3923",
+          "path": [
+            "user",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete user",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[{\"id\":1,\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"},\r\n\r\n{\"id\":2,\"name\":\"user2\",\"age\":30,\"email\":\"user@gmail.com\"}]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3256/user/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3256",
+          "path": [
+            "user",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get user1",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4230/user",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4230",
+          "path": [
+            "user"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get user2",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4250/user/99",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4250",
+          "path": [
+            "user",
+            "99"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
