@@ -1,44 +1,26 @@
-//example1
-function createCounter(init){
-    let counter = init;
-    return{
-        increment(){
-             return ++counter;
-        },
-        reset(){
-            return counter = init;
-        },
-        decrement(){
-             return --counter;
-        }
+
+const http = require('node:http')
+const fs=require('node:fs/promises')
+let server= http.createServer(handlerequest)
+ async function handlerequest(req,res){
+    let { url, method}= req
+    if (url.startsWith('/user/')&& method==='GET'){
+            let id = Number(url.split('/')[2])
+            let users = JSON.parse( await fs.readFile('tasks/users.json',{encoding:"utf-8"}))
+            let user= users.find((user)=>user.id===id)
+        if(!user){
+        res.writeHead(401,{"Content-Type": "application/json"})
+          return   res.end(JSON.stringify({message:"user not found"}))
     }
-}
-    const counter = createCounter(5);
-console.log(counter.increment());
-console.log(counter.reset());
-console.log(counter.decrement());
-
-
- // example2
- function createCounter(init){
-    let version = init;
-    return{
-        increment(){
-            return ++version
-        },
-        decrement(){
-            return -- version;
-        },
-        reset(){
-            return version = init;
-        }
+        
+            res.writeHead(200,{"Content-Type": "application/json"})
+            res.write(JSON.stringify(user))
+          return  res.end()
     }
-}
-    const version = createCounter(0);
-console.log(version.increment());
-console.log(version.increment());
-console.log(version.decrement());
-console.log(version.reset());
-console.log(version.reset());
-
-
+    
+        
+    }
+server.listen(4250,function(){
+    console.log("server port 4250");
+    
+})

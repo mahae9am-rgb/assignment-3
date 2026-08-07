@@ -1,168 +1,122 @@
-//(question 1)
-let x="123";
-console.log(+x+7);
-//(question2)
-let y=0;
-if( !y ){
-console.log("invalid")
+// question 1 : Output Example: {F: “/home/uileser/project/index.js”, Dir: “/home/user/project”}
+function __filename(path){
+    return 'F: “/home/uileser/project/index.js”'
 }
-//(question 3)
-for (let i=1; i <=10; i++){
-    if(i %2 ==0){
-        continue;
-    }
-    console.log(i)
+function __direname(path){
+    return 'Dir: “/home/user/project”';
+    
 }
-//question(4)
-let arr=[1,2,3,4,5];
-function value(number){
-    return number % 2 == 0;
-}
-let resultfilter=arr.filter(value)
+console.log(__filename() + ',' + __direname())
+// question 2 /user/files/report.pdf • Output Example:"report.pdf
+const path = require('node:path')
 
-console.log(resultfilter);
-//question(5)
-let arr1=[1,2,3]
-let arr2=[4,5,6]
-const twoarr=[...arr1,...arr2]
-console.log(twoarr)
-//(question6)
-let day = 2;
-switch(day){
-case 1:
-    console.log("sunday");
-    break;
-case 2:
-    console.log("monday");
-    break;
-case 3:
-    console.log("tuesday");
-    break;
-case 4:
-    console.log("Wednesday");
-    break;
-case 5:
-    console.log("Thursday");
-    break;
-case 6:
-    console.log("Friday");
-    break;
-case 7:
-    console.log("Saturday");
-    break;
+
+let result= path.basename('/user/files/report.pdf')
+console.log(result);
+// question 3
+let path2= { dir:"/folder", name:"app", ext:".js"};
+console.log(path.format(path2));
+// question 4 
+const x = path.extname('/docs/readme.md')
+console.log(x);
+// question 5 /home/app/main.js Output Example:{Name: “main”, Ext:“.js”}
+let y = path.parse('/home/app/main.js');
+ const r = {
+     Name : y.name,
+     ext : y.ext
+ }
+ console.log(r);
+ // q 6    /home/user/file.txt  Output Example: true
+let c = path.isAbsolute('/home/user/file.txt')
+ console.log(c);
+ // q 7 Input:"src","components", "App.js"
+ let oc = path.join("src","components", "App.js")
+ console.log(oc);
+ // q 8 ./index.js ,  Output Example: /home/user/project/src/index.js
+
+ let relative='./index.js '
+ let absolute = path.resolve(relative);
+ console.log(absolute);
+ //q 9 /folder1, folder2/file.txt  Output Example: /folder1/folder2/file.txt
+let str ='/folder1, folder2/file.txt'
+let parts = str.split(',')
+console.log(path.join(...parts));
+ // q10  /path/to/file.txt Output Example: The file.txt is deleted.
+const fs = require('node:fs')  
+
+
+function deletefile(){
+let file = '/path/to/file.txt'
+return console.log('the file.txt is deleted');
 }
-//(question 7)
-let arr3=["a","ab","abc"]
-let modifiedmap=arr3.map((value)=>{
-    return value.length;
+deletefile();
+// q 11
+  function createfolder(folder){
+  }
+  createfolder()
+console.log('sucess');
+
+ //q 12 
+ const {EventEmitter}=require('node:events')
+const event = new EventEmitter();
+event.on('start',function(){
+    console.log('welcome event triggered');
 })
-console.log(modifiedmap);
-//(question 8)
-let b = 15
-if( b % 3 ==0 && x % 5 ==0){
-}
-    console.log("Divisible by both");
-//(question 9)
-    let square = x => x*x 
-    console.log(square(5));
-//(question 10)
-const person ={
-    name:"john", age:25
-}
-let {name,age} = person;
-console.log(`${person.name} is ${person.age} years old`);
-//(question 11)
-function sum (x,y,z,a,s){
-    return x+y+z+a+s;
-}
-let result = sum(1,2,3,4,5)
-console.log(result)
-//(question 12)
-function myfunction(){
-    return new Promise((resolve)=> {
-        setTimeout(()=>{
-            resolve("sucess")},3000)
-        })
-        }
-        myfunction().then((result)=>{
-            console.log(result)
-        })
+event.emit('start')
 
-//(question13)
-let numbers=[1,3,7,2,4]
-let answer=Math.max(...numbers);
-console.log(answer)
-//(question 14)
-let k ={
-    name:"john",age:30
+// q13
+    let nam ='Ahmed'
+event.on('login',function(){
+  console.log(`User logged in: ${nam}`);
+})
+ event.emit('login')
+
+// q14
+let you = fs.readFileSync('./tasks/notes.txt','utf-8')
+if(you){
+    console.log( `the file content => ${you}`);   
 }
-console.log(Object.keys(k))
-//(question 15)
-let text="The quick brown fox";
-console.log(text.split(" "))
-//(EASY QUESTIONS)
-//(question 1)
-//for each work with array[] only ,for of work with arr/map/str
-//for each
-let v=[1,2,6]
-v.forEach((item) =>{
-    console.log(item)
-});
-//for of
-let u = [1,2,3,4,5,6]
-for(let number of u ){
-    if(number===4){
-        break;
+// q15 "./async.txt", content: "Async save"
+ fs.writeFile('./async.txt',
+    'Async save',
+    {flag:'w'},
+    (err)=>{
+    if(err){
+     return console.log(err);
+}
+
+console.log('Async save')})
+
+//q16 
+let q = './tasks/notes.txt'
+console.log(fs.existsSync(q));
+//q17 {Platform: “win32”, Arch: “x64”}
+const os = require('node:os'); 
+function getSystemInfo(){
+    return {
+        platform:os.platform(),
+        Arch:os.arch()
     }
-        console.log(number)
-
 }
-//(question 2)
-// Hoisting is JavaScript's default behavior of moving declarations to the top.
-var q;
-console.log(q)
-q=2;
-//A temporal dead zone (TDZ) is the area of a block where a variable is inaccessible until the moment the computer completely initializes it with a value.
-//console.log(d);
-//let d =5;
-//(question 3)
-// == compras values only
-console.log(5=="5");
-//return true
-// === compras values and their type
-console.log(1===true);
-//return false
-//(question 4)
-// try statement is used to handle errors;
-//The catch block executes only if an error occurs in the try block.
-try{
-    function sum(m,n){
-        return m+n;
-    }
-    console.log(sub(5,6));
-} catch(error){
-    console.log(error.message)
+console.log(getSystemInfo());
+
+//q18
+let readstream = fs.createReadStream('./tasks/big.txt','utf-8')
+
+readstream.on('data',(chunk)=>{
+        console.log(chunk)
+})
+//q19 "./source.txt", "./dest.txt"
+const dataa = fs.readFileSync("./tasks/source.txt","utf-8")
+console.log(dataa);
+fs.writeFileSync("./tasks/dest.txt",dataa)
+//q20 
+const {pipeline}= require('node:stream/promises');
+async function copyline(){
+    await pipeline (
+        fs.createReadStream('/data.txt'),
+        fs.createWriteStream('data.txt.gz')
+    )
+    console.log('done');
+    
 }
-// async function
-//async function test(){
-  //  try{
-    //let result3= await fetch("demo.text");
-    //console.log(result3)
-//}
-//catch(error){
-  //  console.log(error.message)
-//}
-//}
-test();
-//(question5)
-//type converction
-//string to number 
-let c1="1"
-console.log(Number(c1));
-//type coercion
-//string+number
-let r1=2;
-let r2="2"
-console.log(r1+r2);
-
-
