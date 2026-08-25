@@ -1,20 +1,20 @@
 {
   "info": {
-    "_postman_id": "7991e04b-f7af-44bb-839a-bd07f5e3ef90",
-    "name": "g1 node",
+    "_postman_id": "a0c616df-0991-4010-b448-e6232531f08c",
+    "name": "node 2",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "57079027",
-    "_collection_link": "https://go.postman.co/collection/57079027-7991e04b-f7af-44bb-839a-bd07f5e3ef90?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/57079027-a0c616df-0991-4010-b448-e6232531f08c?source=collection_link"
   },
   "item": [
     {
-      "name": "add user",
+      "name": "create user",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "[{\"id\":1,\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"},{\"i\":2,\"name\":\"user2\",\"age\":30,\"email\":\"user@gmail.com\"},[{\"id\":1,\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"},{\"i\":2,\"name\":\"user2\",\"age\":30,\"email\":\"user@gmail.com\"}]]",
+          "raw": "{\r\n    \"email\":\"mahe@55\",\r\n    \"name\":\"name\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -22,12 +22,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3008/user",
+          "raw": "http://localhost:4009/user",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3008",
+          "port": "4009",
           "path": [
             "user"
           ]
@@ -42,7 +42,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "[{\"id\":1,\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"},\r\n\r\n{\"id\":2,\"name\":\"user2\",\"age\":30,\"email\":\"user@gmail.com\"}]",
+          "raw": "[{\r\n    \"id\":\"1\",\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"\r\n},\r\n{\r\n    \"id\":\"2\",\r\n    \"name\":\"user2\",\r\n    \"age\":30,\r\n    \"email\":\"user@gmail.com\"\r\n}]",
           "options": {
             "raw": {
               "language": "json"
@@ -50,15 +50,15 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3923/user/1",
+          "raw": "http://localhost:4089/user/99",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3923",
+          "port": "4089",
           "path": [
             "user",
-            "1"
+            "99"
           ]
         }
       },
@@ -71,7 +71,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "[{\"id\":1,\"name\":\"user1\",\"age\":27,\"email\":\"user@gmail.com\"},\r\n\r\n{\"id\":2,\"name\":\"user2\",\"age\":30,\"email\":\"user@gmail.com\"}]",
+          "raw": "",
           "options": {
             "raw": {
               "language": "json"
@@ -79,12 +79,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3256/user/1",
+          "raw": "http://localhost:4897/user/1",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3256",
+          "port": "4897",
           "path": [
             "user",
             "1"
@@ -94,63 +94,54 @@
       "response": []
     },
     {
-      "name": "get user1",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
+      "name": "get users",
+      "request": {
+        "method": "GET",
+        "header": []
       },
+      "response": []
+    },
+    {
+      "name": "get users2",
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "http://localhost:4230/user",
+          "raw": "http://localhost:3699/user/99",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "4230",
+          "port": "3699",
           "path": [
-            "user"
+            "user",
+            "99"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "get user2",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
+      "name": "get users3",
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "http://localhost:4250/user/99",
+          "raw": "http://localhost:3792/users/filter?minage=25",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "4250",
+          "port": "3792",
           "path": [
-            "user",
-            "99"
+            "users",
+            "filter"
+          ],
+          "query": [
+            {
+              "key": "minage",
+              "value": "25"
+            }
           ]
         }
       },
