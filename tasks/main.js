@@ -1,122 +1,262 @@
-// question 1 : Output Example: {F: “/home/uileser/project/index.js”, Dir: “/home/user/project”}
-function __filename(path){
-    return 'F: “/home/uileser/project/index.js”'
+let fs = require('node:fs')
+let crypto=require('node:crypto')
+
+process.env.UV_THREADPOOL_SIZE=8
+//q1 
+function first(){
+    console.log("first");
 }
-function __direname(path){
-    return 'Dir: “/home/user/project”';
-    
-}
-console.log(__filename() + ',' + __direname())
-// question 2 /user/files/report.pdf • Output Example:"report.pdf
-const path = require('node:path')
-
-
-let result= path.basename('/user/files/report.pdf')
-console.log(result);
-// question 3
-let path2= { dir:"/folder", name:"app", ext:".js"};
-console.log(path.format(path2));
-// question 4 
-const x = path.extname('/docs/readme.md')
-console.log(x);
-// question 5 /home/app/main.js Output Example:{Name: “main”, Ext:“.js”}
-let y = path.parse('/home/app/main.js');
- const r = {
-     Name : y.name,
-     ext : y.ext
- }
- console.log(r);
- // q 6    /home/user/file.txt  Output Example: true
-let c = path.isAbsolute('/home/user/file.txt')
- console.log(c);
- // q 7 Input:"src","components", "App.js"
- let oc = path.join("src","components", "App.js")
- console.log(oc);
- // q 8 ./index.js ,  Output Example: /home/user/project/src/index.js
-
- let relative='./index.js '
- let absolute = path.resolve(relative);
- console.log(absolute);
- //q 9 /folder1, folder2/file.txt  Output Example: /folder1/folder2/file.txt
-let str ='/folder1, folder2/file.txt'
-let parts = str.split(',')
-console.log(path.join(...parts));
- // q10  /path/to/file.txt Output Example: The file.txt is deleted.
-const fs = require('node:fs')  
-
-
-function deletefile(){
-let file = '/path/to/file.txt'
-return console.log('the file.txt is deleted');
-}
-deletefile();
-// q 11
-  function createfolder(folder){
-  }
-  createfolder()
-console.log('sucess');
-
- //q 12 
- const {EventEmitter}=require('node:events')
-const event = new EventEmitter();
-event.on('start',function(){
-    console.log('welcome event triggered');
-})
-event.emit('start')
-
-// q13
-    let nam ='Ahmed'
-event.on('login',function(){
-  console.log(`User logged in: ${nam}`);
-})
- event.emit('login')
-
-// q14
-let you = fs.readFileSync('./tasks/notes.txt','utf-8')
-if(you){
-    console.log( `the file content => ${you}`);   
-}
-// q15 "./async.txt", content: "Async save"
- fs.writeFile('./async.txt',
-    'Async save',
-    {flag:'w'},
-    (err)=>{
-    if(err){
-     return console.log(err);
-}
-
-console.log('Async save')})
-
-//q16 
-let q = './tasks/notes.txt'
-console.log(fs.existsSync(q));
-//q17 {Platform: “win32”, Arch: “x64”}
-const os = require('node:os'); 
-function getSystemInfo(){
-    return {
-        platform:os.platform(),
-        Arch:os.arch()
-    }
-}
-console.log(getSystemInfo());
-
-//q18
-let readstream = fs.createReadStream('./tasks/big.txt','utf-8')
-
-readstream.on('data',(chunk)=>{
-        console.log(chunk)
-})
-//q19 "./source.txt", "./dest.txt"
-const dataa = fs.readFileSync("./tasks/source.txt","utf-8")
-console.log(dataa);
-fs.writeFileSync("./tasks/dest.txt",dataa)
-//q20 
-const {pipeline}= require('node:stream/promises');
-async function copyline(){
-    await pipeline (
-        fs.createReadStream('/data.txt'),
-        fs.createWriteStream('data.txt.gz')
-    )
+setTimeout(()=>{
     console.log('done');
     
+},8000)
+console.log('hello world');
+first()
+
+//q2
+//libuv is a C library originally written for Node.js to abstract non-blocking I/O operations
+
+//q3
+let data = fs.readFile('file.txt',(err,data)=>{
+    console.log(data);
+    
+})
+console.log('end');
+//q4
+ setTimeout(() => {
+   console.log('1');
+    
+ }, 4000);
+ setTimeout(()=>{
+    console.log('2');
+    
+ },1000)
+ console.log('3');
+ //q5
+ console.log('start');
+ for(let i=0;i<=5;i++){
+    crypto.pbkdf2('12347','c',10000,64,'sha512',(err,data)=>{
+        console.log('done');
+        
+    })
+ }
+ 
+//q6
+//blocking
+let file = fs.readFileSync('file.txt','utf-8') 
+    console.log(file)
+    console.log('go');
+    
+//non_blocking
+let res=fs.readFile('file.txt',(err,data)=>{
+    console.log(data);
+    
+    console.log('done reading');
+    
+})
+console.log('the end');
+
+
+
+
+//q1
+ const express = require('express')
+const fs=require('node:fs/promises')
+let app = express()
+app.use(express.json())//chunks , body >>json js
+app.post('/user',async(req,res)=>{
+const users = JSON.parse(await fs.readFile('tasks/users.json',{encoding:"utf-8"}))
+let emailExist = users.find((user)=> user.email===req.body.email)
+if(!emailExist){
+users.push(req.body)
+await fs.writeFile('tasks/users.json',JSON.stringify(users))
+res.status(201).json({
+    mess:'created users',
+    success:true,
+    data:req.body
+})
+}else{
+    res.status(409).json({
+        mess:"already exist"
+    })
+}
+})
+    app.listen(4009,()=>{
+        console.log("done port ");
+        
+    })
+
+    //q2
+    {
+    const express = require('express')
+const fs=require('node:fs/promises')
+const app = express()
+app.use(express.json())//chunks , body >>json obj
+app.patch('/user/:id',async(req,res)=>{
+ let id = Number(req.params.id)
+ let users = JSON.parse(await fs.readFile('tasks/users.json',{encoding:"utf-8"}))
+let emailExist  = users.find((user)=> user.id===id)
+if(!emailExist){
+     return res.status(409).json({
+        message:"user id not found "
+    })
+}
+    Object.assign(emailExist,req.body)
+    await fs.writeFile('tasks/users.json',JSON.stringify(users))
+    res.status(200).json({
+        message:"user age updated successfully"
+    })
+
+
+})
+    app.listen(4089,()=>{
+        console.log("done");
+        
+    })
+    }
+
+
+    //q3
+    {
+    const express = require('express')
+const fs=require('node:fs/promises')
+const app = express()
+app.use(express.json())//chunks , body >>json obj
+app.delete('/user/:id',async(req,res)=>{
+ let id = Number(req.params.id)
+ let users = JSON.parse(await fs.readFile('tasks/users.json',{encoding:"utf-8"}))
+let idusers  = users.find((user)=> user.id===id)
+if(!idusers){
+     return res.status(409).json({
+        message:"user id not found "
+    })
+}
+
+    users = users.filter((user)=>user.id !==id)
+    await fs.writeFile('tasks/users.json',JSON.stringify(users))
+    res.status(200).json({
+        message:"user deleted successfully"
+    })
+
+
+})
+    app.listen(4897,()=>{
+        console.log("done");
+        
+    })
+}
+    //q4
+    {
+    const express = require('express')
+const fs=require('node:fs/promises')
+const { join } = require('node:path')
+const app = express()
+app.use(express.json())//chunks , body >>json obj
+ app.get('/user/getByname',async(req,res)=>{
+    let name=req.query.name
+    let users = JSON.parse(await fs.readFile('tasks/users.json',{encoding:"utf-8"}))
+    let check=users.find((user)=>user.name===name)
+    if(!check){
+        res.status(401).json({
+            message:"user name not found"
+        })
+    }
+    else{
+        res.status(200).json({
+            message:check
+        })
+    }
+
+
+ })
+ app.listen(5614,()=>{
+    console.log("done");
+    
+
+
+ })
+}
+ //q5
+ {
+ const express = require('express')
+const fs=require('node:fs/promises')
+const path=require('node:path')
+const app = express()
+app.use(express.json())//chunks , body >>json obj
+app.get('/user',async(req,res)=>{
+    const filePath = path.join(__dirname,'users.json')
+let data = await fs.readFile(filePath,{encoding:"utf-8"})
+let user = JSON.parse(data)
+
+res.status(201).json({
+    message:user
+})
+
+})
+    
+ app.listen(2829,()=>{
+    console.log("done");
+    
+
+
+ })
+}
+//q6
+{
+const express = require('express')
+const fs=require('node:fs/promises')
+const path=require('node:path')
+const app = express()
+app.use(express.json());
+app.get('/users/filter',async(req,res)=>{
+    let minage= Number(req.query.minage)
+    let filePath=path.join(__dirname,'users.json')
+    let users = JSON.parse(await fs.readFile(filePath,{encoding:'utf-8'}))
+    let data = users.filter((user)=>user.age>=minage)
+    if(data.length>0){
+        res.status(201).json({
+            message:data
+        })
+    }else{
+        res.status(401).json({
+            message:"no user find"
+        })
+    }
+})
+app.listen(3792,()=>{
+    console.log('done');
+    
+})}
+//q7
+{
+const express = require('express')
+const fs=require('node:fs/promises')
+const path=require('node:path')
+const app = express()
+app.use(express.json())//chunks , body >>json obj
+app.get('/user/:id',async(req,res)=>{
+    let id = Number(req.params.id)
+
+    const filePath = path.join(__dirname,'users.json')
+let data =  JSON.parse(await fs.readFile(filePath,{encoding:"utf-8"}))
+let users=data.find((user)=>user.id===id)
+if(users){
+res.status(201).json({
+    message:users
+})
+}
+else{
+ res.status(401).json({
+        message:" user id not found "
+    })
+}
+
+})
+    
+ app.listen(3699,()=>{
+    console.log("done");
+    
+
+
+ })
 }
