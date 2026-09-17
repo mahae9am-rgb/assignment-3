@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "node tasks/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,14 @@
   },
   "homepage": "https://github.com/mahae9am-rgb/assignment-2#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "@prisma/client": "^6.19.1",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.0",
+    "pg-hstore": "^2.3.4",
+    "prisma": "^6.19.1",
+    "sequelize": "^6.37.8"
   }
 }

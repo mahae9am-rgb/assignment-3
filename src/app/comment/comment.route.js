@@ -1,0 +1,11 @@
+const {Router} = require('express')
+const router = Router()
+const commentcontroller =require('./comment.controller')
+router.post('/',commentcontroller.createBulkComments)
+router.post('/find-or-create', commentcontroller.createdComments)
+router.post('/',commentcontroller.createComment)
+router.patch('/:id',commentcontroller.updated)
+router.get('/search',commentcontroller.getAllSpecficWord)
+router.get('/newest/:postid',commentcontroller.getAllComments)
+router.get('/details/:id',commentcontroller.commentsByPk)
+module.exports = router

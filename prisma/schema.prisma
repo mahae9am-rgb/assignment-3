@@ -1,0 +1,53 @@
+
+generator client {
+  provider = "prisma-client-js"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+  // TABLE -> model
+  enum Role{
+    user
+    admin
+  }
+  model User{
+    id Int @id @default(autoincrement())
+    name String @db.VarChar(250)
+    email String @unique @db.VarChar(120)
+    password String? @db.VarChar(220)
+    role Role? @default(user)
+    create DateTime @default(now()) @map("created_At")
+    update DateTime @default(now()) @map("updated_At")
+      @@map("Users")
+    posts Post[]
+    comments Comment[]
+  }
+  
+  model Post{
+    id Int @id @default(autoincrement())
+    title String @db.VarChar(250)
+    content String @db.Text
+    userid Int @map("user_Id")
+    create DateTime @default(now()) @map("created_At")
+    update DateTime @default(now()) @map("updated_At")
+user User @relation(fields: [userid],references: [id],onDelete: Cascade)
+@@map("Posts")
+ comments Comment[]
+
+  }
+  
+model Comment{
+  id Int @id @default(autoincrement())
+  content String @db.Text
+  postid Int @map("post_Id")
+  userid Int @map("user_Id")
+  create DateTime @default(now()) @map("created_At")
+  update DateTime @default(now()) @map("updated_At")
+  post Post @relation(fields: [postid],references: [id],onDelete: Cascade)
+  user User @relation(fields: [userid],references: [id],onDelete: Cascade)
+@@map("Comments")
+}
+ 
